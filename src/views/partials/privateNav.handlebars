@@ -1,7 +1,6 @@
 <nav class="flex items-center justify-between flex-wrap p-3 dark-background-colour orange-border-bottom">
   <div class="flex items-center flex-shrink-0 text-white mr-6">
     <a href="/dashboard"><span class="font-semibold text-xl tracking-tight">EZ-Games</span></a>
-    <div class="font-bold text-xl mb-2">Welcome {{email}}</div>
   </div>
   <div class="block lg:hidden">
     <button
@@ -13,8 +12,8 @@
     </button>
   </div>
   <div class="w-full block lg:flex lg:items-center lg:w-auto right-0">
-    <div id="userIcon" class="rounded-full h-16 w-16 flex items-center justify-center">
-      <ul class="display-none red-border-bottom">
+    <div id="userIcon" class="rounded-full h-16 w-16 flex items-center justify-center orange-background-colour">
+      <ul id="nav-items" class="display-none red-border-bottom white-background-colour">
         <a href="/profile">Profile</a>
         <a href="/recommendations">Recommendations</a>
         <a href="/logout">Logout</a>
