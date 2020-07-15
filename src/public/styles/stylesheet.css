@@ -1,0 +1,36 @@
+.orange-background-colour {
+  background-color: #ff6b03;
+}
+.dark-background-colour {
+  background-color: #373a3c;
+}
+.dark-blue-background-colour {
+  background-color: #183540;
+}
+.white-background-colour {
+  background-color: #edf2f4;
+}
+.green-background-colour {
+  background-color: #078c03;
+}
+.navy-background-colour {
+  background-color: #111930;
+}
+.red-background-colour {
+  background-color: #f20505;
+}
+.display-none {
+  display: none;
+}
+#userIcon ul a:hover > ul {
+  display: block;
+}
+#userIcon:hover > ul {
+  display: block;
+}
+.orange-border-bottom {
+  border-bottom: 0.2rem solid #ff6b03;
+}
+.red-border-bottom {
+  border-bottom: 0.2rem solid #f20505;
+}
