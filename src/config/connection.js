@@ -25,5 +25,15 @@ const productionOptions = {
 
 let sequelize;
 
-sequelize = new Sequelize("ez_games", "root", "password", localOptions);
+if (process.env.NODE_ENV === "production") {
+  sequelize = new Sequelize(
+    process.env.DATABASE,
+    process.env.USERNAME,
+    process.env.PASSWORD,
+    productionOptions
+  );
+} else {
+  sequelize = new Sequelize("ez_games", "root", "password", localOptions);
+}
+
 module.exports = sequelize;

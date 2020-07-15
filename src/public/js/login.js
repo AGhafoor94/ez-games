@@ -1,13 +1,13 @@
-$(document).ready(function () {
+$(document).ready(() => {
   // Getting references to our form and inputs
-  var loginForm = $("form#login");
-  var emailInput = $("input#username");
-  var passwordInput = $("input#password");
+  const loginForm = $("form#login");
+  const emailInput = $("input#username");
+  const passwordInput = $("input#password");
 
   // When the form is submitted, we validate there's an email and password entered
-  loginForm.on("submit", function (event) {
+  loginForm.on("submit", (event) => {
     event.preventDefault();
-    var userData = {
+    const userData = {
       email: emailInput.val().trim(),
       password: passwordInput.val().trim(),
     };
@@ -23,17 +23,17 @@ $(document).ready(function () {
   });
 
   // loginUser does a post to our "api/login" route and if successful, redirects us the the members page
-  function loginUser(email, password) {
+  const loginUser = (email, password) => {
     $.post("/api/auth/login", {
       email: email,
       password: password,
     })
-      .then(function () {
+      .then(() => {
         window.location.replace("/dashboard");
         // If there's an error, log the error
       })
-      .catch(function (err) {
+      .catch((err) => {
         console.log(err);
       });
-  }
+  };
 });

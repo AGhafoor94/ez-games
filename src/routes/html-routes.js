@@ -31,18 +31,18 @@ router.get("/logout", (req, res) => {
 });
 
 router.get("/dashboard", isAuthenticated, async (req, res) => {
-  res.render("dashboard", async () => {
-    const response = await axios({
-      url: "https://api-v3.igdb.com/genres",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "user-key": "878032e38a732e4781301afaf69add0a",
-      },
-      data: "fields *;",
-    });
-    console.log(response.data);
+  const response = await axios({
+    url: "https://api-v3.igdb.com/genres",
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "user-key": "878032e38a732e4781301afaf69add0a",
+    },
+    data: "fields *;",
   });
+  console.log(response.data);
+
+  res.render("dashboard", { email: req.user.email });
 });
 
 module.exports = router;
