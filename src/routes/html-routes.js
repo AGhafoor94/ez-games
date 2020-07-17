@@ -38,11 +38,13 @@ router.get("/dashboard", isAuthenticated, async (req, res) => {
       Accept: "application/json",
       "user-key": "878032e38a732e4781301afaf69add0a",
     },
-    data: "fields *;",
+    data: "fields *; limit 100;",
   });
   console.log(response.data);
 
-  res.render("dashboard", { email: req.user.email });
+  res.render("dashboard", {
+    games: response.data,
+  });
 });
 
 module.exports = router;
