@@ -42,8 +42,6 @@ router.get("/dashboard", isAuthenticated, async (req, res) => {
     },
     data: "fields id, name; limit 100;",
   });
-  console.log(response.data);
-
   res.render("dashboard", {
     genres: response.data,
   });
@@ -58,25 +56,23 @@ router.get("/genres/:id", async (req, res) => {
     },
     data: `fields id, cover, genres, name, summary; where genres = ${req.params.id}; limit 100;`,
   });
-  console.log(response.data);
   res.render("games", {
     game: response.data,
   });
 });
 router.post("/game", async (req, res) => {
-  console.log("POST!!");
-
+  const { game_id, game_name, genre } = req.body;
   const cb = (result) => {
     res.redirect("/dashboard");
   };
 
-  //const payload = {
-  //  game_id: 1,
-  //  game_name: "Fallout 4",
-  //  genre: 5,
-  //  user_id: 2,
-  //  favourite_game: true,
-  //};
-  Games.create(req.body).then(cb);
+  const payload = {
+    game_id,
+    game_name,
+    genre,
+    user_id: req.user.id,
+    favourite_game: true,
+  };
+  Games.create(payload).then(cb);
 });
 module.exports = router;
