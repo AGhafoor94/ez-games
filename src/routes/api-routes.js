@@ -2,6 +2,7 @@ const express = require("express");
 
 const passport = require("../config/passport");
 const User = require("../models/user");
+const game = require("../models/games");
 
 const router = express.Router();
 
@@ -35,6 +36,17 @@ router.post("/auth/signup", async (req, res) => {
   } catch (err) {
     res.status(401).json(err);
   }
+});
+
+router.post("/api/game", async (req, res) => {
+  //res.render("favourite", { game: response.data });
+
+  game.create({
+    game_id: 1,
+    game_name: "Fallout",
+    genre: 5,
+    favourite: true,
+  });
 });
 
 module.exports = router;
