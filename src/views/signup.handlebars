@@ -1,9 +1,10 @@
-{{> publicNav}}
-<div class="flex justify-center mb-4">
+<div class="flex h-screen flex-wrap content-center justify-center">
+
   <div class="w-full md:w-2/3 lg:w-2/3 xl:w-1/3">
     <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" id="signup">
+      <h1 class="block text-white text-lg font-bold mb-2 text-center">Sign Up</h1>
       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+        <label class="block text-white text-sm font-bold mb-2" for="username">
           Username
         </label>
         <input
@@ -11,7 +12,7 @@
           id="username" type="email" placeholder="Enter email">
       </div>
       <div class="mb-6">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+        <label class="block text-white text-sm font-bold mb-2" for="password">
           Password
         </label>
         <input
@@ -19,12 +20,11 @@
           id="password" type="password" placeholder="Enter password">
       </div>
       <div class="flex items-center justify-between">
-        <button
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          type="submit">
+        <button id="create-account-button"
+          class="text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
           Create Account
         </button>
-        <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="/login">
+        <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="/">
           Login
         </a>
       </div>
@@ -32,6 +32,16 @@
     <p class="text-center text-gray-500 text-xs">
       &copy;2020 Acme Corp. All rights reserved.
     </p>
+
   </div>
+
+
+
 </div>
+
+
+
+
+
 <script type="text/javascript" src="js/signup.js"></script>
+<link href="styles/login.css" rel="stylesheet" />
