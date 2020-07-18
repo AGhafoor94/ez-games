@@ -46,10 +46,10 @@
   text-align: center;
 }
 
-#userIcon ul a:hover > ul {
+#userIcon div a:hover > div {
   display: block;
 }
-#userIcon:hover > ul {
+#userIcon:hover > div {
   display: block;
 }
 .nav-items {
@@ -96,4 +96,25 @@
   li:nth-child(3)
   .carousel-bullet {
   color: #2b6cb0;
+}
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid black;
+}
+.nav {
+  margin-top: 120px;
+  z-index: 1;
+  margin-right: 80px;
+  padding: 5px;
+}
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+
+  border-bottom: 5px solid white;
 }
