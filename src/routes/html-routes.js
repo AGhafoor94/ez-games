@@ -4,6 +4,8 @@ const isAuthenticated = require("../middleware/isAuthenticated");
 const axios = require("axios");
 const router = express.Router();
 
+const Games = require("../models/games");
+
 router.get("/", (req, res) => {
   if (req.user) {
     res.redirect("/dashboard");
@@ -60,5 +62,21 @@ router.get("/genres/:id", async (req, res) => {
   res.render("games", {
     game: response.data,
   });
+});
+router.post("/game", async (req, res) => {
+  console.log("POST!!");
+
+  const cb = (result) => {
+    res.redirect("/dashboard");
+  };
+
+  //const payload = {
+  //  game_id: 1,
+  //  game_name: "Fallout 4",
+  //  genre: 5,
+  //  user_id: 2,
+  //  favourite_game: true,
+  //};
+  Games.create(req.body).then(cb);
 });
 module.exports = router;

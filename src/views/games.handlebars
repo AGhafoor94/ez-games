@@ -6,13 +6,14 @@
         <div class="w-1/6 rounded h-20 mb-2 mr-2 card orange-border-bottom">
             <form action="/game" method="POST">
                 <div class="font-bold text-center text-xs px-4">{{name}}</div>
-                <input class="display-none" name="game_id" value="{{id}}">
-                <input class="display-none" name="game_name" value="{{name}}">
-                <input class="display-none" name="genre" value="{{genres}}">
-                <input class="display-none" name="user_id" value="{{user.id}}">
+                <input class="display-none" id="game_id" name={{id}} value={{id}}>
+                <input class="display-none" id="game_name" name={{name}} value={{name}}>
+                <input class="display-none" id="genre" name={{genres}} value={{genres}}>
+                <input class="display-none" id="user_id" name={{user.id}}>
                 <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
                     Add to Profile
                 </button>
+
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
                     View Details
                 </button>
