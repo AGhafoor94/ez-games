@@ -3,7 +3,6 @@ const express = require("express");
 const passport = require("../config/passport");
 const User = require("../models/user");
 const Games = require("../models/games");
-//const db = require("../models");
 
 const router = express.Router();
 
