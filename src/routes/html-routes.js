@@ -20,12 +20,7 @@ router.get("/login", (req, res) => {
   res.render("login");
 });
 
-router.get("/signup", (req, res) => {
-  if (req.user) {
-    res.redirect("/dashboard");
-  }
-  res.render("signup");
-});
+router.get("/signup", (req, res) => {});
 
 router.get("/logout", (req, res) => {
   req.logout();
@@ -33,6 +28,7 @@ router.get("/logout", (req, res) => {
 });
 
 router.get("/dashboard", isAuthenticated, async (req, res) => {
+
   const response = await axios({
     url: "https://api-v3.igdb.com/genres",
     method: "POST",
@@ -66,6 +62,10 @@ router.get("/genres/:id", async (req, res) => {
 router.post("/game", async (req, res) => {
   console.log("POST!!");
 
+router.post("/game", async (req, res) => {
+  console.log("POST!!");
+  //res.render("favourite", { game: response.data });
+
   const cb = (result) => {
     res.redirect("/dashboard");
   };
@@ -77,6 +77,9 @@ router.post("/game", async (req, res) => {
   //  user_id: 2,
   //  favourite_game: true,
   //};
+
   Games.create(req.body).then(cb);
 });
+
+
 module.exports = router;
