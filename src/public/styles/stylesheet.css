@@ -33,9 +33,13 @@
   display: none;
 }
 .card {
-  width: 100%;
   background-color: #ffffff;
-  padding: 2px;
+  display: block;
+}
+.center-content {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
 }
 
 #userIcon ul a:hover > ul {

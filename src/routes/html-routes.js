@@ -43,8 +43,23 @@ router.get("/dashboard", isAuthenticated, async (req, res) => {
   console.log(response.data);
 
   res.render("dashboard", {
+    genres: response.data,
+  });
+});
+router.get("/dashboard/games/:id", isAuthenticated, async (req, res) => {
+  const response = await axios({
+    url: "https://api-v3.igdb.com/games",
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "user-key": "878032e38a732e4781301afaf69add0a",
+    },
+    data: `fields *; where genres = ${req.params.id}; limit 100;`,
+  });
+  console.log(response.data);
+
+  res.render("games", {
     games: response.data,
   });
 });
-
 module.exports = router;
