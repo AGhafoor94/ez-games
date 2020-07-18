@@ -34,9 +34,9 @@ if (process.env.NODE_ENV === "production") {
   );
 } else {
   sequelize = new Sequelize(
-    "user_management_db",
+    "ez_games",
     "root",
-    "password",
+    "1Godthefather+",
     localOptions
   );
 }
