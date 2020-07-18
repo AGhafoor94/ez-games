@@ -46,7 +46,7 @@ router.get("/dashboard", isAuthenticated, async (req, res) => {
     genres: response.data,
   });
 });
-router.get("/:id", async (req, res) => {
+router.get("/genres/:id", async (req, res) => {
   const response = await axios({
     url: "https://api-v3.igdb.com/games",
     method: "POST",
