@@ -1,11 +1,14 @@
 {{> privateNav}}
 {{> carousel}}
-<div class="center-content">
-    <div class="flex flex-wrap mb-4 mt-4 px-2">
+<div class="justify-center">
+    <div class="flex flex-wrap items-center justify-center mb-4 mt-4 px-2">
         {{#each game}}
-        <a class="rounded h-12 mb-2 card">
-            <div class="font-bold text px-4">{{name}}</div>
-            <p>{{summary}}</p>
+        <a class="w-1/6 rounded h-20 mb-2 mr-2 card orange-border-bottom" href="/api/game">
+            <div class="font-bold text-center px-4">{{name}}
+                <div id="userIcon"
+                    class="ml-3 mt-2 float-right rounded-full h-5 w-5 flex items-center justify-center navy-background-colour">
+                </div>
+            </div>
         </a>
         {{/each}}
     </div>

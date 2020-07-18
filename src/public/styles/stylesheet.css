@@ -23,7 +23,7 @@
   background-color: #ffffff;
 }
 .orange-border-bottom {
-  border-bottom: 0.2rem solid #ff6b03;
+  border-bottom: 0.3rem solid #ff6b03;
 }
 .red-border-bottom {
   border-bottom: 0.2rem solid #f20505;
@@ -109,12 +109,4 @@
   z-index: 1;
   margin-right: 80px;
   padding: 5px;
-}
-.arrow-up {
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-
-  border-bottom: 5px solid white;
 }
