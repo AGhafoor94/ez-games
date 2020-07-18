@@ -1,0 +1,112 @@
+.orange-background-colour {
+  background-color: #ff6b03;
+}
+.dark-background-colour {
+  background-color: #373a3c;
+}
+.dark-blue-background-colour {
+  background-color: #183540;
+}
+.white-background-colour {
+  background-color: #edf2f4;
+}
+.green-background-colour {
+  background-color: #078c03;
+}
+.navy-background-colour {
+  background-color: #111930;
+}
+.red-background-colour {
+  background-color: #f20505;
+}
+.white-background-colour {
+  background-color: #ffffff;
+}
+.orange-border-bottom {
+  border-bottom: 0.3rem solid #ff6b03;
+}
+.red-border-bottom {
+  border-bottom: 0.2rem solid #f20505;
+}
+.form-border {
+  border-right: 4px solid rgba(255, 255, 255, 0.6);
+  border-left: 4px solid rgba(255, 255, 255, 0.6);
+  border-top: 4px solid rgba(255, 255, 255, 0.6);
+}
+.display-none {
+  display: none;
+}
+.card {
+  background-color: #ffffff;
+  display: block;
+}
+.center-content {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#userIcon div a:hover > div {
+  display: block;
+}
+#userIcon:hover > div {
+  display: block;
+}
+.nav-items {
+  margin-top: 100%;
+}
+/*Carousel*/
+.carousel-open:checked + .carousel-item {
+  position: static;
+  opacity: 100;
+}
+.carousel-item {
+  -webkit-transition: opacity 0.6s ease-out;
+  transition: opacity 0.6s ease-out;
+}
+#carousel-1:checked ~ .control-1,
+#carousel-2:checked ~ .control-2,
+#carousel-3:checked ~ .control-3 {
+  display: block;
+}
+.carousel-indicators {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  bottom: 2%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 10;
+}
+#carousel-1:checked
+  ~ .control-1
+  ~ .carousel-indicators
+  li:nth-child(1)
+  .carousel-bullet,
+#carousel-2:checked
+  ~ .control-2
+  ~ .carousel-indicators
+  li:nth-child(2)
+  .carousel-bullet,
+#carousel-3:checked
+  ~ .control-3
+  ~ .carousel-indicators
+  li:nth-child(3)
+  .carousel-bullet {
+  color: #2b6cb0;
+}
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid black;
+}
+.nav {
+  margin-top: 120px;
+  z-index: 1;
+  margin-right: 80px;
+  padding: 5px;
+}

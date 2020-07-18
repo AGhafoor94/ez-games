@@ -1,12 +1,8 @@
 const express = require("express");
 
 const isAuthenticated = require("../middleware/isAuthenticated");
-
-const router = express.Router();
-
 const axios = require("axios");
-
-const User = require("../models/user");
+const router = express.Router();
 
 const Games = require("../models/games");
 
@@ -32,12 +28,44 @@ router.get("/logout", (req, res) => {
 });
 
 router.get("/dashboard", isAuthenticated, async (req, res) => {
-  res.render("dashboard", { email: req.user.email });
+
+  const response = await axios({
+    url: "https://api-v3.igdb.com/genres",
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "user-key": "878032e38a732e4781301afaf69add0a",
+    },
+    data: "fields id, name; limit 100;",
+  });
+  console.log(response.data);
+
+  res.render("dashboard", {
+    genres: response.data,
+  });
 });
+router.get("/genres/:id", async (req, res) => {
+  const response = await axios({
+    url: "https://api-v3.igdb.com/games",
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "user-key": "878032e38a732e4781301afaf69add0a",
+    },
+    data: `fields id, cover, genres, name, summary; where genres = ${req.params.id}; limit 100;`,
+  });
+  console.log(response.data);
+  res.render("games", {
+    game: response.data,
+  });
+});
+router.post("/game", async (req, res) => {
+  console.log("POST!!");
 
 router.post("/game", async (req, res) => {
   console.log("POST!!");
   //res.render("favourite", { game: response.data });
+
   const cb = (result) => {
     res.redirect("/dashboard");
   };
@@ -52,5 +80,6 @@ router.post("/game", async (req, res) => {
 
   Games.create(req.body).then(cb);
 });
+
 
 module.exports = router;
