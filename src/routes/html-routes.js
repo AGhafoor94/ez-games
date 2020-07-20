@@ -8,21 +8,21 @@ const Games = require("../models/games");
 
 router.get("/", (req, res) => {
   if (req.user) {
-    res.redirect("/dashboard");
+    res.redirect(`/dashboard`);
   }
   res.render("login");
 });
 
 router.get("/login", (req, res) => {
   if (req.user) {
-    res.redirect("/dashboard");
+    res.redirect(`/dashboard`);
   }
   res.render("login");
 });
 
 router.get("/signup", (req, res) => {
   if (req.user) {
-    res.redirect("/dashboard");
+    res.redirect(`/dashboard`);
   }
   res.render("signup");
 });
@@ -33,6 +33,9 @@ router.get("/logout", (req, res) => {
 });
 
 router.get("/dashboard", isAuthenticated, async (req, res) => {
+  res.redirect(`/dashboard/${req.user.id}`);
+});
+router.get("/dashboard/:id", isAuthenticated, async (req, res) => {
   const response = await axios({
     url: "https://api-v3.igdb.com/genres",
     method: "POST",
@@ -46,6 +49,7 @@ router.get("/dashboard", isAuthenticated, async (req, res) => {
     genres: response.data,
   });
 });
+
 router.get("/genres/:id", async (req, res) => {
   const response = await axios({
     url: "https://api-v3.igdb.com/games",
@@ -56,18 +60,26 @@ router.get("/genres/:id", async (req, res) => {
     },
     data: `fields id, cover, genres, name, cover, summary; where genres = ${req.params.id}; limit 100;`,
   });
-  console.log(response);
+  console.log(response.data);
   res.render("games", {
     game: response.data,
   });
 });
 
 router.get("/profile/:id", async (req, res) => {
-  Games.games.findAll({
-    where: id === games.user_id,
+  const id = req.params.id;
+  const response = await Games.findAll({
+    where: id === Games.user_id,
   });
+
+  let profileRespond = [];
+  response.forEach((element) => {
+    profileRespond.push(element.dataValues);
+  });
+  console.log(profileRespond);
+  //console.log(response);
   res.render("profile", {
-    game: response.data,
+    games: profileRespond,
   });
 });
 

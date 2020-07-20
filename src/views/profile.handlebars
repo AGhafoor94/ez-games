@@ -1,15 +1,15 @@
 {{> privateNav}}
 
+<h1>Profile</h1>
+
 <div class="px-2">
     <div class="flex flex-wrap mt-8">
         {{#each games}}
         <div class="w-1/5 px-3">
             <div class="max-w-sm rounded overflow-hidden shadow-lg">
                 <div class="px-6 py-6">
-                    <div class="font-bold text-xl mb-2">{{name}}</div>
-                    <p class="text-gray-700 text-base">
-                        {{summary}}
-                    </p>
+                    <div class="font-bold text-xl mb-2">{{this.game_name}}</div>
+
                 </div>
                 <div class="justify-center mb-3">
                     <button
