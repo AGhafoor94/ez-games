@@ -28,6 +28,12 @@
 .red-border-bottom {
   border-bottom: 0.2rem solid #f20505;
 }
+.silver-border-bottom {
+  border-bottom: 0.2rem solid #edf2f4;
+}
+.nav-click {
+  cursor: pointer;
+}
 .form-border {
   border-right: 4px solid rgba(255, 255, 255, 0.6);
   border-left: 4px solid rgba(255, 255, 255, 0.6);
@@ -45,7 +51,18 @@
   margin: 0 auto;
   text-align: center;
 }
-
+.add-to-profile {
+  background-color: #ff6b03;
+}
+.add-to-profile:hover {
+  background-color: #dd5e04;
+}
+.view-details {
+  background-color: #183540;
+}
+.view-details:hover {
+  background-color: #11242c;
+}
 #userIcon div a:hover > div {
   display: block;
 }
