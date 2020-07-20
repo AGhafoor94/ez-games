@@ -57,6 +57,15 @@ router.get("/genres/:id", async (req, res) => {
   });
 });
 
+router.get("/profile/:id", async (req, res) => {
+  Games.games.findAll({
+    where: id === games.user_id,
+  });
+  res.render("profile", {
+    game: response.data,
+  });
+});
+
 router.post("/game", async (req, res) => {
   const { game_id, game_name, genre } = req.body;
 
