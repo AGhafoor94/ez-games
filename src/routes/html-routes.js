@@ -54,12 +54,14 @@ router.get("/genres/:id", async (req, res) => {
       Accept: "application/json",
       "user-key": "878032e38a732e4781301afaf69add0a",
     },
-    data: `fields id, cover, genres, name, summary; where genres = ${req.params.id}; limit 100;`,
+    data: `fields id, cover, genres, name, cover, summary; where genres = ${req.params.id}; limit 100;`,
   });
+  console.log(response);
   res.render("games", {
     game: response.data,
   });
 });
+
 router.post("/game", async (req, res) => {
   const { game_id, game_name, genre } = req.body;
   const cb = (result) => {
