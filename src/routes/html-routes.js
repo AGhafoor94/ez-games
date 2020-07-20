@@ -75,7 +75,7 @@ router.post("/game", async (req, res) => {
   const { game_id, game_name, genre } = req.body;
 
   const cb = (result) => {
-    res.redirect("/dashboard");
+    res.redirect("/games");
   };
 
   const payload = {
