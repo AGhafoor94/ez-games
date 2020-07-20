@@ -20,12 +20,7 @@ router.get("/login", (req, res) => {
   res.render("login");
 });
 
-router.get("/signup", (req, res) => {
-  if (req.user) {
-    res.redirect("/dashboard");
-  }
-  res.render("signup");
-});
+router.get("/signup", (req, res) => {});
 
 router.get("/logout", (req, res) => {
   req.logout();
@@ -64,6 +59,7 @@ router.get("/genres/:id", async (req, res) => {
 
 router.post("/game", async (req, res) => {
   const { game_id, game_name, genre } = req.body;
+
   const cb = (result) => {
     res.redirect("/dashboard");
   };
@@ -77,4 +73,5 @@ router.post("/game", async (req, res) => {
   };
   Games.create(payload).then(cb);
 });
+
 module.exports = router;
