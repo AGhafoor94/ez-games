@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === "production") {
     productionOptions
   );
 } else {
-  sequelize = new Sequelize("ez_games", "root", "password", localOptions);
+  sequelize = new Sequelize("ez_games", "root", null, localOptions);
 }
 
 module.exports = sequelize;
