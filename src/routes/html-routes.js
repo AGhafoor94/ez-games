@@ -45,12 +45,17 @@ router.get("/dashboard/:id", isAuthenticated, async (req, res) => {
     },
     data: "fields id, name; limit 100;",
   });
+
+  //const { cover } = response.data;
+
   res.render("dashboard", {
     genres: response.data,
   });
 });
 
+newData = [];
 router.get("/genres/:id", async (req, res) => {
+  //newData.splice(0, newData.length);
   const response = await axios({
     url: "https://api-v3.igdb.com/games",
     method: "POST",
@@ -58,12 +63,35 @@ router.get("/genres/:id", async (req, res) => {
       Accept: "application/json",
       "user-key": "878032e38a732e4781301afaf69add0a",
     },
-    data: `fields id, cover, genres, name, cover, summary; where genres = ${req.params.id}; limit 100;`,
+    data: `fields id, cover, genres, name, cover, summary; where genres = ${req.params.id}; limit 2;`,
   });
-  console.log(response.data);
+
+  //console.log(response.data);
+
+  response.data.forEach(async (element) => {
+    const response2 = await axios({
+      method: "post",
+      url: "https://api-v3.igdb.com/covers/",
+      headers: {
+        Accept: "application/json",
+        "user-key": "878032e38a732e4781301afaf69add0a",
+        "Content-Type": "application/json",
+      },
+      data: `fields *;\nwhere id = ${element.cover};\n`,
+    });
+    //console.log(element);
+    //console.log(response2.data);
+
+    let newObject = Object.assign(element, { url: response2.data[0].url });
+    newData.push(newObject);
+    //console.log(newData);
+  });
+
+  console.log(newData);
   res.render("games", {
-    game: response.data,
+    game: newData,
   });
+  newData = [];
 });
 
 router.get("/profile/:id", async (req, res) => {
@@ -77,6 +105,7 @@ router.get("/profile/:id", async (req, res) => {
     profileRespond.push(element.dataValues);
   });
   console.log(profileRespond);
+
   //console.log(response);
   res.render("profile", {
     games: profileRespond,
