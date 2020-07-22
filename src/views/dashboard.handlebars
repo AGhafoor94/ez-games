@@ -3,6 +3,7 @@
 <div class="flex sm:flex-1 flex-wrap items-center justify-center mb-4 mt-4 px-2">
   {{#each genres}}
   <div class="flex-auto sm:flex-1 md:flex-auto px-2 rounded h-20 mb-4 mr-4 card orange-border-bottom">
+    <img src={{image.thumb_url}}>
     <p class="font-bold align-middle text-center">{{name}}</p>
     <a href="/genres/{{id}}" class="flex items-center justify-center mt-2">
       <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
