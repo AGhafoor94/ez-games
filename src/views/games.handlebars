@@ -5,11 +5,11 @@
 <div class="justify-center">
     <div class="flex flex-wrap items-center justify-center mb-4 mt-4 px-2">
         {{#each game}}
-        <div class=" flex-auto sm:flex-1 md:flex-auto md:w-1/3 px-2 rounded h-48 mb-4 mr-4 card orange-border-bottom">
-            <div class="font-bold text-center text-sm px-4 right-0">{{name}}</div>
-            <p style="font-size: 0.5rem;">{{summary}}</p>
+        <div class="flex-auto sm:flex-1 md:flex-auto px-2 rounded h-20 mb-4 mr-4 card orange-border-bottom">
+            <img src={{image.tiny_url}}>
+
             <form action="/game" method="POST">
-                <img class="flex  flex-wrap" src={{url}}>
+                <div class="font-bold text-center text-sm px-4">{{name}}</div>
                 <input type="hidden" id="game_id" name="game_id" value={{id}}>
                 <input type="hidden" id="game_name" name="game_name" value={{name}}>
                 <input type="hidden" id="genre" name="genre" value={{genres}}>

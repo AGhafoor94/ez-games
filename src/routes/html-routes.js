@@ -6,6 +6,10 @@ const router = express.Router();
 
 const Games = require("../models/games");
 
+const baseUrl = "https://www.giantbomb.com/api/";
+const apiKey = "/?api_key=64e95957a4b1b0cb263581d712fb0422aefb2ee6";
+const limitAndJson = "&limit=50&format=json";
+
 router.get("/", (req, res) => {
   if (req.user) {
     res.redirect(`/dashboard`);
@@ -37,50 +41,26 @@ router.get("/dashboard", isAuthenticated, async (req, res) => {
 });
 router.get("/dashboard/:id", isAuthenticated, async (req, res) => {
   const response = await axios({
-    url: "https://api-v3.igdb.com/genres",
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "user-key": "878032e38a732e4781301afaf69add0a",
-    },
-    data: "fields id, name; limit 100;",
+    url: `${baseUrl}genres${apiKey}${limitAndJson}`,
+    method: "GET",
   });
-
+  console.log(response.data.results);
   res.render("dashboard", {
-    genres: response.data,
+    genres: response.data.results,
   });
 });
 
 newData = [];
 router.get("/genres/:id", async (req, res) => {
   const response = await axios({
-    url: "https://api-v3.igdb.com/games",
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "user-key": "878032e38a732e4781301afaf69add0a",
-    },
-    data: `fields id, cover, genres, name, cover, summary; where genres = ${req.params.id}; limit 10;`,
+
+    url: `${baseUrl}games${apiKey}${limitAndJson}`,
+    method: "GET",
   });
+  console.log(response.data.results);
 
-  response.data.forEach(async (element) => {
-    const response2 = await axios({
-      method: "GET",
-      url: "https://api-v3.igdb.com/covers/",
-      headers: {
-        Accept: "application/json",
-        "user-key": "878032e38a732e4781301afaf69add0a",
-      },
-      data: `fields *; where game = ${element.id};`,
-    });
-
-    let newObject = Object.assign(element, { url: response2.data[0].url });
-    newData.push(newObject);
-  });
-
-  console.log(newData);
   res.render("games", {
-    game: newData,
+    game: response.data.results,
   });
   newData = [];
 });
