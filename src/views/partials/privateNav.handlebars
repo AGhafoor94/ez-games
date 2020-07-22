@@ -1,35 +1,13 @@
 <nav class="flex items-center justify-between flex-wrap p-3 dark-background-colour orange-border-bottom">
   <div class="flex items-center flex-shrink-0 text-white mr-6">
-    <a href="/dashboard/"><span class="font-semibold text-xl tracking-tight">EZ-Games</span></a>
+    <a href="/dashboard"><span class="font-semibold text-xl tracking-tight">EZ-Games</span></a>
   </div>
-  <div class="block  right-0">
-    <div id="userIcon" class="rounded-full h-10 w-10 flex items-center justify-center orange-background-colour">
-      <div id="nav-items" class="rounded display-none red-border-bottom white-background-colour nav">
-        <div class="silver-border-bottom nav-click">
-          {{#each users}}
-          <a href="/profile/{{id}}">{{email}}</a>
-
-
-          {{/each}}
-
-
-
-
-
-          <div class="silver-border-bottom">
-            <a href="/recommendations">Recommendations</a>
-          </div>
-          <a href="/logout">Logout</a>
-          <script>
-            const path = require("path");
-            console.log(path.join(__dirname, "../models/user"));
-            const User = require(path.join(__dirname, "../models/user"));
-            console.log("In the dashboard");
-            console.log(User.id);
-          </script>
-        </div>
-      </div>
-    </div>
+  <div class="right-0">
+    <ul>
+      <a class="nav-buttons mr-2" style="color: #edf2f4" href="/profile">Profile</a>
+      <a class="nav-buttons mr-2" style="color: #edf2f4" href="/logout">Logout</a>
+    </ul>
+  </div>
   </div>
   </div>
 </nav>
