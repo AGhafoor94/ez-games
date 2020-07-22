@@ -31,8 +31,8 @@
 .silver-border-bottom {
   border-bottom: 0.2rem solid #edf2f4;
 }
-.nav-click {
-  cursor: pointer;
+.nav-buttons:hover {
+  border-bottom: 0.2rem solid #f20505;
 }
 .form-border {
   border-right: 4px solid rgba(255, 255, 255, 0.6);

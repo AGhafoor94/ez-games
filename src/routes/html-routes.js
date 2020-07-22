@@ -60,19 +60,18 @@ router.get("/genres/:id", async (req, res) => {
       Accept: "application/json",
       "user-key": "878032e38a732e4781301afaf69add0a",
     },
-    data: `fields id, cover, genres, name, cover, summary; where genres = ${req.params.id}; limit 2;`,
+    data: `fields id, cover, genres, name, cover, summary; where genres = ${req.params.id}; limit 10;`,
   });
 
   response.data.forEach(async (element) => {
     const response2 = await axios({
-      method: "post",
+      method: "GET",
       url: "https://api-v3.igdb.com/covers/",
       headers: {
         Accept: "application/json",
         "user-key": "878032e38a732e4781301afaf69add0a",
-        "Content-Type": "application/json",
       },
-      data: `fields *; where id = ${element.cover};`,
+      data: `fields *; where game = ${element.id};`,
     });
 
     let newObject = Object.assign(element, { url: response2.data[0].url });
@@ -85,8 +84,7 @@ router.get("/genres/:id", async (req, res) => {
   });
   newData = [];
 });
-
-router.get("/profile/:id", async (req, res) => {
+router.get("/profile", async (req, res) => {
   const id = req.params.id;
   const response = await Games.findAll({
     where: id === Games.user_id,
@@ -101,7 +99,6 @@ router.get("/profile/:id", async (req, res) => {
   res.render("profile", {
     games: profileRespond,
   });
-});
 
 router.post("/game", async (req, res) => {
   const { game_id, game_name, genre } = req.body;
