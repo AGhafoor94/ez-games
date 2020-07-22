@@ -8,7 +8,7 @@ const Games = require("../models/games");
 
 const baseUrl = "https://www.giantbomb.com/api/";
 const apiKey = "/?api_key=64e95957a4b1b0cb263581d712fb0422aefb2ee6";
-const limitAndJson = "&limit=1&format=json";
+const limitAndJson = "&limit=50&format=json";
 
 router.get("/", (req, res) => {
   if (req.user) {
