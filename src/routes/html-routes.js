@@ -12,19 +12,24 @@ const limitAndJson = "&limit=50&format=json";
 
 router.get("/", (req, res) => {
   if (req.user) {
-    res.redirect("/dashboard");
+    res.redirect(`/dashboard`);
   }
   res.render("login");
 });
 
 router.get("/login", (req, res) => {
   if (req.user) {
-    res.redirect("/dashboard");
+    res.redirect(`/dashboard`);
   }
   res.render("login");
 });
 
-router.get("/signup", (req, res) => {});
+router.get("/signup", (req, res) => {
+  if (req.user) {
+    res.redirect(`/dashboard`);
+  }
+  res.render("signup");
+});
 
 router.get("/logout", (req, res) => {
   req.logout();
@@ -32,6 +37,9 @@ router.get("/logout", (req, res) => {
 });
 
 router.get("/dashboard", isAuthenticated, async (req, res) => {
+  res.redirect(`/dashboard/${req.user.id}`);
+});
+router.get("/dashboard/:id", isAuthenticated, async (req, res) => {
   const response = await axios({
     url: `${baseUrl}genres${apiKey}${limitAndJson}`,
     method: "GET",
@@ -41,8 +49,11 @@ router.get("/dashboard", isAuthenticated, async (req, res) => {
     genres: response.data.results,
   });
 });
+
+newData = [];
 router.get("/genres/:id", async (req, res) => {
   const response = await axios({
+
     url: `${baseUrl}games${apiKey}${limitAndJson}`,
     method: "GET",
   });
@@ -51,13 +62,29 @@ router.get("/genres/:id", async (req, res) => {
   res.render("games", {
     game: response.data.results,
   });
+  newData = [];
 });
+router.get("/profile", async (req, res) => {
+  const id = req.params.id;
+  const response = await Games.findAll({
+    where: id === Games.user_id,
+  });
+
+  let profileRespond = [];
+  response.forEach((element) => {
+    profileRespond.push(element.dataValues);
+  });
+  console.log(profileRespond);
+
+  res.render("profile", {
+    games: profileRespond,
+  });
 
 router.post("/game", async (req, res) => {
   const { game_id, game_name, genre } = req.body;
 
   const cb = (result) => {
-    res.redirect("/dashboard");
+    res.redirect("/games");
   };
 
   const payload = {
