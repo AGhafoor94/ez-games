@@ -1,6 +1,29 @@
 {{> privateNav}}
 <div class="grid grid-cols-3 gap-4 items-center justify-center mb-4 mt-4 px-2">
     {{#each response}}
-    {{> profile}}
+    <form action="/profile/{{game_id}}" method="POST">
+        <div class="flex-auto sm:flex-1 md:flex-auto px-2 rounded mb-4 mr-4 card orange-border-bottom h-auto">
+            <div class="max-w-sm w-full lg:max-w-full lg:flex ">
+                <div
+                    class="bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                    <div class="mb-8">
+                        <div class="text-gray-900 font-bold text-xl mb-2">{{game_name}}</div>
+                        <input type="hidden" value={{favourite_game}} name="favourite_game">
+                        <input type="hidden" value={{game_id}} name="game_id">
+                        {{#if favourite_game}}
+                        <button type="submit" class="green-background-colour text-white font-bold py-2 px-4 rounded">
+                            Un Favourite Game
+                        </button>
+                        {{else}}
+                        <button type="submit"
+                            class="dark-blue-background-colour text-white font-bold py-2 px-4 rounded">
+                            Favourite Game
+                        </button>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
     {{/each}}
 </div>

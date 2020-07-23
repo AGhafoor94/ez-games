@@ -127,3 +127,27 @@
   margin-right: 80px;
   padding: 5px;
 }
+
+@media only screen and (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .carousel {
+    height: 150px;
+  }
+
+  .header-picture {
+    height: 150px;
+  }
+
+  .carousel-indicators {
+    display: none;
+  }
+
+  .carousel-button {
+    visibility: hidden;
+  }
+}

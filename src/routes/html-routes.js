@@ -8,7 +8,7 @@ const Games = require("../models/games");
 
 const baseUrl = "https://www.giantbomb.com/api/";
 const apiKey = "?api_key=64e95957a4b1b0cb263581d712fb0422aefb2ee6";
-const limitAndJson = "&limit=50&format=json";
+const limitAndJson = "&format=json";
 
 router.get("/", (req, res) => {
   if (req.user) {
@@ -43,7 +43,7 @@ router.get("/dashboard", isAuthenticated, async (req, res) => {
 
 router.get("/year/:id", async (req, res) => {
   const response = await axios({
-    url: `${baseUrl}games${apiKey}${limitAndJson}&filter=original_release_date:${req.params.id}-01-01`,
+    url: `${baseUrl}games${apiKey}${limitAndJson}&filter=original_release_date:${req.params.id}-01-01&score:5`,
     method: "GET",
   });
 
@@ -52,18 +52,32 @@ router.get("/year/:id", async (req, res) => {
   });
 });
 
-router.get("/profile", async (req, res) => {
+router.get("/profile", isAuthenticated, async (req, res) => {
   const user_id = req.user.id;
   const response = await Games.findAll({
     where: { user_id },
+    raw: true,
   });
-  let array = [];
-  for (let i = 0; i <= response.length; i++) {
-    array.push(response);
-  }
-  res.json(array);
+  res.render("profile", { response });
 });
-router.post("/game", async (req, res) => {
+
+router.post("/profile/:id", isAuthenticated, async (req, res) => {
+  const { favourite_game, game_id } = req.body;
+  console.log(typeof favourite_game);
+  let response;
+  if (favourite_game === "1") {
+    Games.update({ favourite_game: false }, { where: { game_id } }).then(() =>
+      res.redirect("/profile")
+    );
+  }
+  if (favourite_game === "0") {
+    Games.update({ favourite_game: true }, { where: { game_id } }).then(() =>
+      res.redirect("/profile")
+    );
+  }
+});
+
+router.post("/year/:id", isAuthenticated, async (req, res) => {
   const { game_id, game_name } = req.body;
 
   const cb = (result) => {
@@ -75,7 +89,7 @@ router.post("/game", async (req, res) => {
     game_name,
     genre: req.params.id,
     user_id: req.user.id,
-    favourite_game: true,
+    favourite_game: false,
   };
   Games.create(payload).then(cb);
 });
