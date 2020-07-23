@@ -63,7 +63,6 @@ router.get("/profile", isAuthenticated, async (req, res) => {
 
 router.post("/profile/:id", isAuthenticated, async (req, res) => {
   const { favourite_game, game_id } = req.body;
-  console.log(typeof favourite_game);
   let response;
   if (favourite_game === "1") {
     Games.update({ favourite_game: false }, { where: { game_id } }).then(() =>
