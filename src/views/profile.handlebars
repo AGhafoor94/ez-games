@@ -12,7 +12,7 @@
                         <input type="hidden" value={{game_id}} name="game_id">
                         {{#if favourite_game}}
                         <button type="submit" class="green-background-colour text-white font-bold py-2 px-4 rounded">
-                            Un Favourite Game
+                            Unfavourite Game
                         </button>
                         {{else}}
                         <button type="submit"
@@ -24,6 +24,11 @@
                 </div>
             </div>
         </div>
+    </form>
+    <form action="/profile/{{game_id}}" method="DELETE">
+        <button type="submit" class="dark-blue-background-colour text-white font-bold py-2 px-4 rounded">
+            Delete
+        </button>
     </form>
     {{/each}}
 </div>
