@@ -7,29 +7,24 @@ const router = express.Router();
 const Games = require("../models/games");
 
 const baseUrl = "https://www.giantbomb.com/api/";
-const apiKey = "/?api_key=64e95957a4b1b0cb263581d712fb0422aefb2ee6";
+const apiKey = "?api_key=64e95957a4b1b0cb263581d712fb0422aefb2ee6";
 const limitAndJson = "&limit=50&format=json";
 
 router.get("/", (req, res) => {
   if (req.user) {
-    res.redirect(`/dashboard`);
+    res.redirect("/dashboard");
   }
   res.render("login");
 });
 
 router.get("/login", (req, res) => {
   if (req.user) {
-    res.redirect(`/dashboard`);
+    res.redirect("/dashboard");
   }
   res.render("login");
 });
 
-router.get("/signup", (req, res) => {
-  if (req.user) {
-    res.redirect(`/dashboard`);
-  }
-  res.render("signup");
-});
+router.get("/signup", (req, res) => {});
 
 router.get("/logout", (req, res) => {
   req.logout();
@@ -37,60 +32,48 @@ router.get("/logout", (req, res) => {
 });
 
 router.get("/dashboard", isAuthenticated, async (req, res) => {
-  res.redirect(`/dashboard/${req.user.id}`);
-});
-router.get("/dashboard/:id", isAuthenticated, async (req, res) => {
-  const response = await axios({
-    url: `${baseUrl}genres${apiKey}${limitAndJson}`,
-    method: "GET",
-  });
-  console.log(response.data.results);
+  const year = [];
+  for (let i = 2000; i < 2021; i++) {
+    year.push({ name: i });
+  }
   res.render("dashboard", {
-    genres: response.data.results,
+    genres: year,
   });
 });
 
-newData = [];
-router.get("/genres/:id", async (req, res) => {
+router.get("/year/:id", async (req, res) => {
   const response = await axios({
-
-    url: `${baseUrl}games${apiKey}${limitAndJson}`,
+    url: `${baseUrl}games${apiKey}${limitAndJson}&filter=original_release_date:${req.params.id}-01-01`,
     method: "GET",
   });
-  console.log(response.data.results);
 
   res.render("games", {
     game: response.data.results,
   });
-  newData = [];
 });
+
 router.get("/profile", async (req, res) => {
-  const id = req.params.id;
+  const user_id = req.user.id;
   const response = await Games.findAll({
-    where: id === Games.user_id,
+    where: { user_id },
   });
-
-  let profileRespond = [];
-  response.forEach((element) => {
-    profileRespond.push(element.dataValues);
-  });
-  console.log(profileRespond);
-
-  res.render("profile", {
-    games: profileRespond,
-  });
-
+  let array = [];
+  for (let i = 0; i <= response.length; i++) {
+    array.push(response);
+  }
+  res.json(array);
+});
 router.post("/game", async (req, res) => {
-  const { game_id, game_name, genre } = req.body;
+  const { game_id, game_name } = req.body;
 
   const cb = (result) => {
-    res.redirect("/games");
+    res.redirect("/dashboard");
   };
 
   const payload = {
     game_id,
     game_name,
-    genre,
+    genre: req.params.id,
     user_id: req.user.id,
     favourite_game: true,
   };
