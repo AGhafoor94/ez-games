@@ -1,5 +1,6 @@
 $(document).ready(() => {
   // Getting references to our form and inputs
+
   const loginForm = $("form#login");
   const emailInput = $("input#username");
   const passwordInput = $("input#password");
@@ -29,9 +30,10 @@ $(document).ready(() => {
       password: password,
     })
       .then(() => {
-        window.location.replace("/dashboard");
-        // If there's an error, log the error
+        window.location.replace(`/dashboard`);
       })
+      // If there's an error, log the error
+
       .catch((err) => {
         console.log(err);
       });

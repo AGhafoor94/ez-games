@@ -1,0 +1,18 @@
+.line {
+  background-color: #ff6b03;
+  padding-top: 4px;
+}
+
+body {
+  font-family: Delicious;
+  src: url("Delicious-Roman.otf");
+  background-color: #183540;
+}
+
+#fav-game-card {
+  background-color: white;
+}
+
+.card-margin {
+  margin: 20px;
+}
