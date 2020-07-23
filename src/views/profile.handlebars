@@ -1,20 +1,7 @@
 {{> privateNav}}
 <div class="grid grid-cols-3 gap-4 items-center justify-center mb-4 mt-4 px-2">
-    {{#each genres}}
-    <div class="flex-auto sm:flex-1 md:flex-auto px-2 rounded mb-4 mr-4 card orange-border-bottom h-auto">
-        <div class="max-w-sm w-full lg:max-w-full lg:flex ">
+    {{#each response}}
+    {{> profile}}
 
-            <div
-                class="bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-                <div class="mb-8">
-                    <div class="text-gray-900 font-bold text-xl mb-2">{{name}}</div>
-                    <a href="/year/{{name}}"> <button
-                            class="dark-blue-background-colour text-white font-bold py-2 px-4 rounded">
-                            Choose {{name}}
-                        </button></a>
-                </div>
-            </div>
-        </div>
-    </div>
     {{/each}}
 </div>

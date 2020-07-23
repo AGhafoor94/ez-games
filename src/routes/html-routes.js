@@ -37,7 +37,6 @@ router.get("/dashboard", isAuthenticated, async (req, res) => {
     console.log(i);
     year.push({ name: i });
   }
-  console.log(year);
 
   res.render("dashboard", {
     genres: year,
@@ -48,13 +47,23 @@ router.get("/year/:id", async (req, res) => {
     url: `${baseUrl}games${apiKey}${limitAndJson}&filter=original_release_date:${req.params.id}-01-01`,
     method: "GET",
   });
-  console.log(response.data.results);
 
   res.render("games", {
     game: response.data.results,
   });
 });
-
+router.get("/profile", async (req, res) => {
+  const user_id = req.user.id;
+  const response = await Games.findAll({
+    where: { user_id },
+  });
+  let array = [];
+  for (let i = 0; i <= response.length; i++) {
+    array.push(response);
+  }
+  console.log(array);
+  res.json(array);
+});
 router.post("/game", async (req, res) => {
   const { game_id, game_name } = req.body;
 
