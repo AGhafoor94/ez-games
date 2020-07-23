@@ -8,7 +8,7 @@ const Games = require("../models/games");
 
 const baseUrl = "https://www.giantbomb.com/api/";
 const apiKey = "?api_key=64e95957a4b1b0cb263581d712fb0422aefb2ee6";
-const limitAndJson = "&limit=10&format=json";
+const limitAndJson = "&limit=50&format=json";
 
 router.get("/", (req, res) => {
   if (req.user) {
@@ -34,14 +34,13 @@ router.get("/logout", (req, res) => {
 router.get("/dashboard", isAuthenticated, async (req, res) => {
   const year = [];
   for (let i = 2000; i < 2021; i++) {
-    console.log(i);
     year.push({ name: i });
   }
-
   res.render("dashboard", {
     genres: year,
   });
 });
+
 router.get("/year/:id", async (req, res) => {
   const response = await axios({
     url: `${baseUrl}games${apiKey}${limitAndJson}&filter=original_release_date:${req.params.id}-01-01`,
@@ -52,6 +51,7 @@ router.get("/year/:id", async (req, res) => {
     game: response.data.results,
   });
 });
+
 router.get("/profile", async (req, res) => {
   const user_id = req.user.id;
   const response = await Games.findAll({
@@ -61,7 +61,6 @@ router.get("/profile", async (req, res) => {
   for (let i = 0; i <= response.length; i++) {
     array.push(response);
   }
-  console.log(array);
   res.json(array);
 });
 router.post("/game", async (req, res) => {
