@@ -5,13 +5,13 @@
 <div class="flex flex-wrap">
     {{#each game}}
     <div
-        class="flex-auto sm:flex-root md:content-center md:w-1/2 lg:w-1/3 xl:w-1/3 my-2 px-2 rounded my-2 mx-2 card h-auto orange-border-bottom">
+        class="bg-white flex-auto sm:flex-root md:content-center md:w-1/2 lg:w-1/3 xl:w-1/3 rounded my-2 mx-2 h-auto orange-border-bottom">
         <div class="max-w-sm w-full lg:max-w-full lg:flex ">
             <div
                 class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
                 <img class="my-2" src={{image.original_url}}>
             </div>
-            <div class="bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between
+            <div class="rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between
                     leading-normal">
                 <div class="font-bold text-center text-xl px-4">{{name}}</div>
                 <p>{{deck}}</p>

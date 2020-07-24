@@ -65,7 +65,6 @@ router.get("/profile", isAuthenticated, async (req, res) => {
 
 router.post("/profile/:id", isAuthenticated, async (req, res) => {
   const { favourite_game, game_id } = req.body;
-  let response;
   if (favourite_game === "1") {
     Games.update({ favourite_game: false }, { where: { game_id } }).then(() =>
       res.redirect("/profile")
@@ -77,7 +76,11 @@ router.post("/profile/:id", isAuthenticated, async (req, res) => {
     );
   }
 });
-
+router.delete("/profile/:id", isAuthenticated, async (req, res) => {
+  const { game_id } = req.body;
+  await Games.remove({ game_id }, { where: { game_id } });
+  res.redirect("/profile");
+});
 router.post("/year/:id", isAuthenticated, async (req, res) => {
   const { game_id, game_name } = req.body;
 
