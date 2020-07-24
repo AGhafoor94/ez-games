@@ -76,11 +76,6 @@ router.post("/profile/:id", isAuthenticated, async (req, res) => {
     );
   }
 });
-router.delete("/profile/:id", isAuthenticated, async (req, res) => {
-  const { game_id } = req.body;
-  await Games.remove({ game_id }, { where: { game_id } });
-  res.redirect("/profile");
-});
 router.post("/year/:id", isAuthenticated, async (req, res) => {
   const { game_id, game_name } = req.body;
 
