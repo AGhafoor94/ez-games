@@ -25,6 +25,9 @@
 .orange-border-bottom {
   border-bottom: 0.3rem solid #ff6b03;
 }
+.orange-border {
+  border-top: 0.3rem solid #ff6b03;
+}
 .red-border-bottom {
   border-bottom: 0.2rem solid #f20505;
 }
@@ -127,11 +130,17 @@
   margin-right: 80px;
   padding: 5px;
 }
-
-@media only screen and (max-width: 600px) {
-  body {
-    background-color: lightblue;
-  }
+.login-background {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("../images/sekiro-background.jpg");
+}
+.signup-background {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("../images/background-login-page.jpg");
 }
 
 @media only screen and (max-width: 450px) {
