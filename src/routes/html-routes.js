@@ -45,7 +45,7 @@ router.get("/dashboard", isAuthenticated, async (req, res) => {
 
 router.get("/year/:id", async (req, res) => {
   const response = await axios({
-    url: `${baseUrl}games${apiKey}${limitAndJson}&filter=original_release_date:${req.params.id}-01-01&score:5`,
+    url: `${baseUrl}games${apiKey}${limitAndJson}&filter=original_release_date:${req.params.id}-01-01`,
     method: "GET",
   });
 
