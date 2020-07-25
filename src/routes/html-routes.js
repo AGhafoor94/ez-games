@@ -112,8 +112,8 @@ router.post("/game", isAuthenticated, async (req, res) => {
         url: `${baseUrl}platforms${apiKey}${limitAndJson}&filter=name:${search}`,
         method: "GET",
       });
-      res.render("game", {
-        game: response.data.results,
+      res.render("console", {
+        console: response.data.results,
       });
       break;
     case "platformGames":
@@ -126,6 +126,15 @@ router.post("/game", isAuthenticated, async (req, res) => {
       });
       break;
   }
+});
+router.get("/game/:id", isAuthenticated, async (req, res) => {
+  const response = await axios({
+    url: `${baseUrl}games${apiKey}${limitAndJson}&filter=platforms:${req.params.id}`,
+    method: "GET",
+  });
+  res.render("game", {
+    game: response.data.results,
+  });
 });
 router.post("/year/:id", isAuthenticated, async (req, res) => {
   const { game_id, game_name } = req.body;
