@@ -1,5 +1,7 @@
 const Sequelize = require("sequelize");
 
+// If in development mode, use the local options
+
 const localOptions = {
   host: "localhost",
   port: 3306,
@@ -10,6 +12,8 @@ const localOptions = {
     idle: 10000,
   },
 };
+
+// Production mode, use the productionOptions
 
 const productionOptions = {
   host: process.env.HOSTNAME,

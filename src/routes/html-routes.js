@@ -1,21 +1,28 @@
 const express = require("express");
-
-const isAuthenticated = require("../middleware/isAuthenticated");
+// Using axios for getting routes
 const axios = require("axios");
+// Using the router in express
 const router = express.Router();
 
+// Using the isAuthenticated middleware to check if the user is authenticated then go to the next function
+const isAuthenticated = require("../middleware/isAuthenticated");
+// Getting our model for our table
 const Games = require("../models/games");
 
+// Using our base url and appending our apikey and another query
 const baseUrl = "https://www.giantbomb.com/api/";
 const apiKey = `?api_key=${process.env.API_KEY}`;
 const limitAndJson = "&format=json";
 
+// First route to the dashboard if the user is logged in
 router.get("/", (req, res) => {
   if (req.user) {
     res.redirect("/dashboard");
   }
   res.render("login");
 });
+
+// Login route redirecting to the dashboard if the user is logged in
 
 router.get("/login", (req, res) => {
   if (req.user) {
@@ -24,14 +31,20 @@ router.get("/login", (req, res) => {
   res.render("login");
 });
 
+// Sign up route redirecting to the dashboard if the user is logged in
+
 router.get("/signup", (req, res) => {
   res.render("signup");
 });
+
+// Route to log out and send to the log in page
 
 router.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/");
 });
+
+// Dashboard page where all the year buttons are
 
 router.get("/dashboard", isAuthenticated, async (req, res) => {
   const year = [];
@@ -43,16 +56,24 @@ router.get("/dashboard", isAuthenticated, async (req, res) => {
   });
 });
 
+// Route to the game once the user has clicked on the year, it adds it into the url as a parameter
+
 router.get("/year/:id", async (req, res) => {
+  // async await axios call with our url and filter
   const response = await axios({
     url: `${baseUrl}games${apiKey}${limitAndJson}&filter=original_release_date:${req.params.id}-01-01`,
     method: "GET",
   });
 
+  // Renders the games page with the response data
+
   res.render("games", {
     game: response.data.results,
   });
 });
+
+// Get route on the /profile page if the user is authenticated. It gets the user id and finds all the games
+// they have added to their profile and renders it on the page using sequelize
 
 router.get("/profile", isAuthenticated, async (req, res) => {
   const user_id = req.user.id;
@@ -62,6 +83,8 @@ router.get("/profile", isAuthenticated, async (req, res) => {
   });
   res.render("profile", { response });
 });
+
+// Route to add to favourites on the profile page and unfavourite the game
 
 router.post("/profile/:id", isAuthenticated, async (req, res) => {
   const { favourite_game, game_id } = req.body;
@@ -76,6 +99,9 @@ router.post("/profile/:id", isAuthenticated, async (req, res) => {
     );
   }
 });
+
+// Post route to the /game page where it allows users to search for their releases, games, consoles etc
+
 router.post("/game", isAuthenticated, async (req, res) => {
   const { search, searchOptions } = req.body;
   let response;
@@ -128,6 +154,9 @@ router.post("/game", isAuthenticated, async (req, res) => {
       break;
   }
 });
+
+// Route to get /game/id
+
 router.get("/game/:id", isAuthenticated, async (req, res) => {
   const response = await axios({
     url: `${baseUrl}games${apiKey}${limitAndJson}&filter=platforms:${req.params.id}`,
@@ -137,10 +166,14 @@ router.get("/game/:id", isAuthenticated, async (req, res) => {
     game: response.data.results,
   });
 });
+
+// Route to post the games to the users profile
+
 router.post("/year/:id", isAuthenticated, async (req, res) => {
   const { game_id, game_name } = req.body;
-  console.log(game_name);
+
   const cb = (result) => {
+    // Redirecting to the dashboard
     res.redirect("/dashboard");
   };
 
@@ -151,7 +184,10 @@ router.post("/year/:id", isAuthenticated, async (req, res) => {
     user_id: req.user.id,
     favourite_game: false,
   };
+  // Creating new item in the table using the Games model
   Games.create(payload).then(cb);
 });
+
+// Exports the router
 
 module.exports = router;
