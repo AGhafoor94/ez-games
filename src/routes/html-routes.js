@@ -7,7 +7,7 @@ const router = express.Router();
 const Games = require("../models/games");
 
 const baseUrl = "https://www.giantbomb.com/api/";
-const apiKey = "?api_key=64e95957a4b1b0cb263581d712fb0422aefb2ee6";
+const apiKey = `?api_key=${process.env.API_KEY}`;
 const limitAndJson = "&format=json";
 
 router.get("/", (req, res) => {
@@ -99,6 +99,7 @@ router.post("/game", isAuthenticated, async (req, res) => {
       });
       break;
     case "year":
+      parseInt(search);
       response = await axios({
         url: `${baseUrl}games${apiKey}${limitAndJson}&filter=original_release_date:${search}-01-01`,
         method: "GET",
