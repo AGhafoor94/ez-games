@@ -77,20 +77,59 @@ router.post("/profile/:id", isAuthenticated, async (req, res) => {
   }
 });
 router.post("/game", isAuthenticated, async (req, res) => {
-  const { search } = req.body;
-  console.log(search);
-  const response = await axios({
-    url: `${baseUrl}games${apiKey}${limitAndJson}&filter=name:${search}`,
-    method: "GET",
-  });
-
-  res.render("game", {
-    game: response.data.results,
-  });
+  const { search, searchOptions } = req.body;
+  let response;
+  switch (searchOptions) {
+    case "releases":
+      response = await axios({
+        url: `${baseUrl}releases${apiKey}${limitAndJson}&filter=name:${search}`,
+        method: "GET",
+      });
+      res.render("game", {
+        game: response.data.results,
+      });
+      break;
+    case "game-name":
+      response = await axios({
+        url: `${baseUrl}games${apiKey}${limitAndJson}&filter=name:${search}`,
+        method: "GET",
+      });
+      res.render("game", {
+        game: response.data.results,
+      });
+      break;
+    case "year":
+      response = await axios({
+        url: `${baseUrl}games${apiKey}${limitAndJson}&filter=original_release_date:${search}-01-01`,
+        method: "GET",
+      });
+      res.render("game", {
+        game: response.data.results,
+      });
+      break;
+    case "platform":
+      response = await axios({
+        url: `${baseUrl}platforms${apiKey}${limitAndJson}&filter=name:${search}`,
+        method: "GET",
+      });
+      res.render("game", {
+        game: response.data.results,
+      });
+      break;
+    case "platformGames":
+      response = await axios({
+        url: `${baseUrl}games${apiKey}${limitAndJson}&filter=platforms:${search}`,
+        method: "GET",
+      });
+      res.render("game", {
+        game: response.data.results,
+      });
+      break;
+  }
 });
 router.post("/year/:id", isAuthenticated, async (req, res) => {
   const { game_id, game_name } = req.body;
-
+  console.log(game_name);
   const cb = (result) => {
     res.redirect("/dashboard");
   };
