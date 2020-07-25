@@ -76,6 +76,18 @@ router.post("/profile/:id", isAuthenticated, async (req, res) => {
     );
   }
 });
+router.post("/game", isAuthenticated, async (req, res) => {
+  const { search } = req.body;
+  console.log(search);
+  const response = await axios({
+    url: `${baseUrl}games${apiKey}${limitAndJson}&filter=name:${search}`,
+    method: "GET",
+  });
+
+  res.render("game", {
+    game: response.data.results,
+  });
+});
 router.post("/year/:id", isAuthenticated, async (req, res) => {
   const { game_id, game_name } = req.body;
 

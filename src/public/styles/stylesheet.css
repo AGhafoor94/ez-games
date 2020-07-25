@@ -63,12 +63,6 @@
 .view-details:hover {
   background-color: #11242c;
 }
-#userIcon div a:hover > div {
-  display: block;
-}
-#userIcon:hover > div {
-  display: block;
-}
 .nav-items {
   margin-top: 100%;
 }
@@ -100,13 +94,6 @@
     height: 150px;
   }
 
-  .carousel-indicators {
-    display: none;
-  }
-
-  .carousel-button {
-    visibility: hidden;
-  }
   .buttons {
     text-align: center;
     font-size: 0.6rem;
