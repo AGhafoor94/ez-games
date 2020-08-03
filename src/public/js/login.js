@@ -1,41 +1,19 @@
 $(document).ready(() => {
-  // Getting references to our form and inputs
-
-  const loginForm = $("form#login");
-  const emailInput = $("input#username");
-  const passwordInput = $("input#password");
-
-  // When the form is submitted, we validate there's an email and password entered
-  loginForm.on("submit", (event) => {
-    event.preventDefault();
-    const userData = {
-      email: emailInput.val().trim(),
-      password: passwordInput.val().trim(),
-    };
-
-    if (!userData.email || !userData.password) {
-      return;
-    }
-
-    // If we have an email and password we run the loginUser function and clear the form
-    loginUser(userData.email, userData.password);
-    emailInput.val("");
-    passwordInput.val("");
+  const a = $("form#login"),
+    b = $("input#username"),
+    c = $("input#password");
+  a.on("submit", (a) => {
+    a.preventDefault();
+    const e = { email: b.val().trim(), password: c.val().trim() };
+    e.email && e.password && (d(e.email, e.password), b.val(""), c.val(""));
   });
-
-  // loginUser does a post to our "api/login" route and if successful, redirects us the the members page
-  const loginUser = (email, password) => {
-    $.post("/api/auth/login", {
-      email: email,
-      password: password,
-    })
+  const d = (a, b) => {
+    $.post("/api/auth/login", { email: a, password: b })
       .then(() => {
         window.location.replace(`/dashboard`);
       })
-      // If there's an error, log the error
-
-      .catch((err) => {
-        console.log(err);
+      .catch((a) => {
+        console.log(a);
       });
   };
 });

@@ -1,35 +1,22 @@
-const passport = require("passport");
-const Strategy = require("passport-local").Strategy;
-
-const User = require("../models/user");
-
-const EMAIL_ERROR_MESSAGE = "Incorrect email address";
-const PASSWORD_ERROR_MESSAGE = "Incorrect password";
-
-const verifyCallback = async (email, password, done) => {
-  const dbUser = await User.findOne({ where: { email } });
-
-  if (!dbUser) {
-    return done(null, false, { message: EMAIL_ERROR_MESSAGE });
-  }
-
-  if (!dbUser.validPassword(password)) {
-    return done(null, false, { message: PASSWORD_ERROR_MESSAGE });
-  }
-
-  return done(null, dbUser);
-};
-
-const localStrategy = new Strategy({ usernameField: "email" }, verifyCallback);
-
-passport.use(localStrategy);
-
-passport.serializeUser((user, cb) => {
-  cb(null, user);
-});
-
-passport.deserializeUser((obj, cb) => {
-  cb(null, obj);
-});
-
-module.exports = passport;
+const passport = require("passport"),
+  Strategy = require("passport-local").Strategy,
+  User = require("../models/user"),
+  EMAIL_ERROR_MESSAGE = "Incorrect email address",
+  PASSWORD_ERROR_MESSAGE = "Incorrect password",
+  verifyCallback = async (a, b, c) => {
+    const d = await User.findOne({ where: { email: a } });
+    return d
+      ? d.validPassword(b)
+        ? c(null, d)
+        : c(null, !1, { message: PASSWORD_ERROR_MESSAGE })
+      : c(null, !1, { message: EMAIL_ERROR_MESSAGE });
+  },
+  localStrategy = new Strategy({ usernameField: "email" }, verifyCallback);
+passport.use(localStrategy),
+  passport.serializeUser((a, b) => {
+    b(null, a);
+  }),
+  passport.deserializeUser((a, b) => {
+    b(null, a);
+  }),
+  (module.exports = passport);
