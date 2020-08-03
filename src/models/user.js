@@ -1,22 +1,35 @@
-const bcrypt = require("bcryptjs"),
-  Sequelize = require("sequelize"),
-  sequelize = require("../config/connection.js"),
-  salt = bcrypt.genSaltSync(10),
-  schema = {
-    email: {
-      type: Sequelize.STRING,
-      allowNull: !1,
-      unique: !0,
-      validate: { isEmail: !0 },
+const bcrypt = require("bcryptjs");
+const Sequelize = require("sequelize");
+
+const sequelize = require("../config/connection.js");
+
+const salt = bcrypt.genSaltSync(10);
+
+const schema = {
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: true,
+    validate: {
+      isEmail: true,
     },
-    password: { type: Sequelize.STRING, allowNull: !1 },
   },
-  User = sequelize.define("user", schema);
-(User.prototype.validPassword = function (a) {
-  return bcrypt.compareSync(a, this.password);
-}),
-  User.addHook("beforeCreate", (a) => {
-    a.password = bcrypt.hashSync(a.password, salt, null);
-  }),
-  User.sync(),
-  (module.exports = User);
+  password: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+};
+
+const User = sequelize.define("user", schema);
+
+User.prototype.validPassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
+};
+
+User.addHook("beforeCreate", (user) => {
+  user.password = bcrypt.hashSync(user.password, salt, null);
+});
+
+User.sync();
+
+module.exports = User;
